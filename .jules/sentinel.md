@@ -1,0 +1,8 @@
+## 2024-05-24 - [CRITICAL] Hardcoded Secret in Nginx Configuration
+**Vulnerability:** A hardcoded secret token (`xrpc-9f8e7d6c5b4a`) was found in the `server-php/config/conf.d/wordpress.conf` Nginx configuration file. It was used as a query parameter check (`$arg_token = "xrpc-9f8e7d6c5b4a"`) to bypass the block on the `/xmlrpc.php` endpoint. This exposes the XML-RPC endpoint to anyone who knows or discovers the token, which is committed to the repository.
+**Learning:** Nginx configuration files can sometimes contain logic and conditionals (e.g., `if` blocks) that are used for access control. Hardcoding secrets directly in these configuration files is a critical vulnerability because configuration files are often tracked in version control, making the secret visible to anyone with read access to the repository. The environment variable substitution (`envsubst`) was mentioned in comments but not actually implemented in the `server-php` entrypoint, meaning the config is used directly as written.
+**Prevention:**
+1.  **Never hardcode secrets** in Nginx configuration files, or any other tracked configuration files.
+2.  If an endpoint like `/xmlrpc.php` must be blocked, use an unconditional `deny all;` directive.
+3.  If access control is necessary, use proper authentication mechanisms (e.g., basic auth with a hashed password file managed outside version control, or upstream application-level authentication) rather than simple token string matching in the web server configuration.
+4.  If secrets must be injected into configuration at runtime, ensure the startup script (e.g., `entrypoint.sh`) properly utilizes environment variable substitution (like `envsubst`) and that the raw configuration templates tracked in git only contain variable placeholders.
