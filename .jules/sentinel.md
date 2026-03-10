@@ -1,0 +1,4 @@
+## 2026-03-10 - Unconditional block of XML-RPC in WordPress configuration
+**Vulnerability:** A hardcoded token (`xrpc-9f8e7d6c5b4a`) was used to bypass XML-RPC blocking in `server-php/config/conf.d/wordpress.conf`. This acts as a backdoor or hardcoded secret. If discovered, it allows attackers full access to the XML-RPC endpoint, which is a common vector for brute-force attacks and DDoS amplification in WordPress.
+**Learning:** Hardcoding a single token in an Nginx configuration as an authentication mechanism is a significant security flaw. Such endpoints are best disabled completely if not actively used. If required, standard authentication or explicit IP whitelisting should be used instead of shared secret tokens in source control.
+**Prevention:** Never commit hardcoded secrets or bypass tokens to version control. Use unconditional blocks (`deny all`) for known vulnerable endpoints like `xmlrpc.php` in default configurations.
