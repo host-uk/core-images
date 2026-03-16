@@ -106,7 +106,7 @@ RUN composer global config allow-plugins.pestphp/pest-plugin true && \
     laravel/pint:^1.0
 
 # FrankenPHP (static binary)
-RUN curl -fsSL "https://github.com/dunglas/frankenphp/releases/latest/download/frankenphp-linux-$(uname -m | sed 's/aarch64/arm64/' | sed 's/x86_64/x86_64/')" -o /usr/local/bin/frankenphp && \
+    RUN curl -fsSL "https://github.com/dunglas/frankenphp/releases/latest/download/frankenphp-linux-$(uname -m)" -o /usr/local/bin/frankenphp && \
     chmod +x /usr/local/bin/frankenphp
 
 # ============================================================
