@@ -1,0 +1,4 @@
+## 2026-03-21 - [Hardcoded XML-RPC Secret Bypass]
+**Vulnerability:** A hardcoded bypass token (`xrpc-9f8e7d6c5b4a`) was used in Nginx configuration (`server-php/config/conf.d/wordpress.conf`) to conditionally allow access to `/xmlrpc.php`, a known source for WordPress vulnerabilities and attacks.
+**Learning:** Hardcoding secrets or bypass tokens in configuration files introduces a significant security risk, especially in public or accessible repositories. It circumvents the defense mechanism by creating an obscure, yet trivial to exploit, backdoor.
+**Prevention:** Avoid using hardcoded secrets, passwords, or bypass tokens in configuration files. Critical endpoints like `/xmlrpc.php` should be unconditionally blocked if they are not used securely, or authentication should be handled securely by proper upstream mechanisms rather than plain text condition checks.
