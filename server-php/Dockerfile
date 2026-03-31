@@ -120,7 +120,7 @@ WORKDIR /var/www/html
 COPY --chmod=755 --chown=nobody:nobody --from=builder /build /var/www/html
 
 # Copy configuration templates
-COPY --chmod=644 --chown=nobody:nobody config/nginx.conf /etc/nginx/nginx.conf
+COPY --chmod=644 --chown=nobody:nobody config/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --chmod=755 --chown=nobody:nobody config/conf.d /etc/nginx/conf.d/
 COPY --chmod=644 --chown=nobody:nobody config/fpm-pool.conf.template ${PHP_INI_DIR}/php-fpm.d/www.conf.template
 COPY --chmod=644 --chown=nobody:nobody config/php.ini.template ${PHP_INI_DIR}/conf.d/custom.ini.template
