@@ -1,0 +1,4 @@
+## 2024-05-15 - [Remove hardcoded token check for XML-RPC]
+**Vulnerability:** A hardcoded token check (`xrpc-9f8e7d6c5b4a`) was present in the Nginx configuration (`server-php/config/conf.d/wordpress.conf`) for allowing access to `/xmlrpc.php`. This is a critical security vulnerability as it allows anyone with knowledge of the token to bypass the block and access the endpoint, potentially exposing the application to abuse.
+**Learning:** Hardcoded secrets in configuration files are a common anti-pattern and can be easily discovered by an attacker if the source code or configuration files are exposed. Nginx configuration files should not contain sensitive information.
+**Prevention:** Unconditionally block sensitive endpoints if they are not required, or implement proper authentication mechanisms (e.g., via upstream application or external authentication service) instead of relying on hardcoded tokens in the web server configuration.
