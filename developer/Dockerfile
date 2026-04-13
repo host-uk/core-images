@@ -167,7 +167,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # ---- Modern CLI tools (from GitHub releases / cargo / pip) ----
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y && \
-    curl -fsSL https://github.com/dandavison/bat/releases/latest/download/bat_0.25.0_$(dpkg --print-architecture).deb -o /tmp/bat.deb && dpkg -i /tmp/bat.deb && rm /tmp/bat.deb || true
+    curl -fsSL https://github.com/sharkdp/bat/releases/download/v0.25.0/bat_0.25.0_$(dpkg --print-architecture).deb -o /tmp/bat.deb && dpkg -i /tmp/bat.deb && rm /tmp/bat.deb || true
 
 # gh CLI
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
