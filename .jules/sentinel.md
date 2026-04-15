@@ -1,0 +1,4 @@
+## 2024-04-15 - [CRITICAL] Avoid hardcoded $arg_token checks in Nginx
+**Vulnerability:** A hardcoded `$arg_token = "xrpc-9f8e7d6c5b4a"` check was present in the Nginx configuration to conditionally allow access to `/xmlrpc.php`, acting as a backdoor bypass.
+**Learning:** Hardcoding secrets directly into infrastructure configuration files like Nginx exposes the system to compromise if the configuration is leaked or checked into version control. It defeats centralized secret management and standard authentication mechanisms.
+**Prevention:** Always implement unconditional blocks for deprecated/vulnerable endpoints (e.g., XML-RPC in modern WordPress). If access is strictly required, use proper external authentication mechanisms (e.g., OAuth, SSO, or standard authentication backends) rather than hardcoded query parameter checks.
