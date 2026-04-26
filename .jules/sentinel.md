@@ -1,0 +1,4 @@
+## 2025-02-26 - Hardcoded Secret in Nginx Config
+**Vulnerability:** A hardcoded token (`$arg_token = "xrpc-9f8e7d6c5b4a"`) was used to bypass the restriction on the `/xmlrpc.php` endpoint in the Nginx configuration.
+**Learning:** Hardcoded secrets in Nginx configurations can be exposed if the configuration file is leaked or read by unauthorized users. Furthermore, `$arg_token` allows the token to be passed in the URL query string, which means it will be logged in web server access logs, proxies, and browser history, leading to further exposure.
+**Prevention:** Unconditionally block endpoints that should not be accessed, or use proper authentication mechanisms (like HTTP Basic Auth or upstream authentication) instead of hardcoded tokens in Nginx configuration files. Never pass secrets as query arguments.
