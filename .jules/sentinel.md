@@ -1,0 +1,4 @@
+## 2024-05-01 - [Block XML-RPC & Remove Hardcoded Token]
+**Vulnerability:** A hardcoded token `xrpc-9f8e7d6c5b4a` was being used to bypass the restriction on `/xmlrpc.php` in the WordPress Nginx configuration `server-php/config/conf.d/wordpress.conf`.
+**Learning:** Hardcoded credentials acting as a backdoor in configuration files present a critical risk. `xmlrpc.php` is often targeted for DDoS and brute-force attacks and should typically be blocked by default unless absolutely necessary, without using hardcoded tokens in config files.
+**Prevention:** Ensure configurations strictly enforce unconditional denies for administrative or unneeded endpoints. If an endpoint must be conditionally allowed, use dynamic mechanisms (e.g. valid upstream authentication or environment-based dynamic generation) instead of hardcoding static credentials in plain text Nginx blocks.
