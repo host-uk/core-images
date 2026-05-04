@@ -1,0 +1,5 @@
+# Sentinel Journal
+## 2024-05-03 - [CRITICAL] Removed Hardcoded XML-RPC Secret Bypass
+**Vulnerability:** A hardcoded secret token (`xrpc-9f8e7d6c5b4a`) was found in `server-php/config/conf.d/wordpress.conf` allowing a complete bypass to access `/xmlrpc.php`, a known vector for DDoS and brute-force attacks.
+**Learning:** Hardcoded authentication bypasses ("backdoors") in web server configurations are a critical vulnerability pattern. The configuration bypassed the default secure posture (which block XML-RPC) if a specific string matched. This type of secret bypass in configuration management leads to the secret being committed to version control and broadly deployed.
+**Prevention:** Unconditionally block sensitive endpoints like `/xmlrpc.php` in Nginx using `deny all; access_log off; log_not_found off;`. If an endpoint needs legitimate programmatic access, require strong upstream authentication (e.g., OAuth, API keys injected via environment variables) and avoid placing hardcoded tokens in `.conf` files.
