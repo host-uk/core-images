@@ -1,0 +1,4 @@
+## 2024-05-11 - [Hardcoded XML-RPC Secret Bypass]
+**Vulnerability:** A hardcoded token (`xrpc-9f8e7d6c5b4a`) was embedded in an Nginx `wordpress.conf` file to conditionally bypass a block on `/xmlrpc.php` via a query parameter check (`$arg_token = "..."`).
+**Learning:** Hardcoded authentication logic in load balancer or web server configurations often goes unnoticed during standard codebase security scans since it resides outside the main application logic, yet it provides a direct, unauthenticated back-door to potentially vulnerable endpoints.
+**Prevention:** Avoid embedding any secrets or authentication bypass logic within infrastructure or web server configurations. If an endpoint must be blocked, use an unconditional `deny all;`. If access is required, rely on robust, standard authentication mechanisms (like OAuth or mutual TLS) at the application or edge layer rather than hardcoded query parameter checks.
