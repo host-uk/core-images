@@ -1,0 +1,4 @@
+## 2026-05-23 - [CRITICAL] Fix hardcoded XML-RPC secret bypass
+**Vulnerability:** A hardcoded token (`xrpc-9f8e7d6c5b4a`) was present in `server-php/config/conf.d/wordpress.conf` allowing a bypass to access the `/xmlrpc.php` endpoint even though it was intended to be blocked by default.
+**Learning:** Hardcoding secrets or bypass tokens directly in server configuration files creates a persistent and easily discoverable backdoor. It violates the defense-in-depth principle by enabling potential remote code execution or enumeration attacks if the XML-RPC endpoint is vulnerable.
+**Prevention:** Always unconditionally block deprecated or risky endpoints like XML-RPC in production setups unless strictly required. If access is required, implement proper authentication/authorization mechanisms and never hardcode secrets or tokens in configuration files.
