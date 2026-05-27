@@ -1,0 +1,4 @@
+## 2026-05-27 - [Hardcoded XML-RPC Bypass Secret in Nginx]
+**Vulnerability:** Found a hardcoded authentication token (`$arg_token = "xrpc-9f8e7d6c5b4a"`) in `server-php/config/conf.d/wordpress.conf` used to bypass the block on `/xmlrpc.php`. This constitutes a backdoor and allows anyone with the token to access a potentially vulnerable XML-RPC endpoint.
+**Learning:** Hardcoding secrets directly in Nginx configuration files is dangerous as the configuration files are often committed to version control. Furthermore, a shared static secret is not a secure mechanism for authentication.
+**Prevention:** Remove the hardcoded token check and unconditionally deny access (`deny all;`) to `/xmlrpc.php`. If access is legitimately needed, it should be authenticated via proper upstream authentication mechanisms, not Nginx query parameter checks with static strings.
