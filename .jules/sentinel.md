@@ -1,0 +1,4 @@
+## 2024-06-03 - [CRITICAL] Fix hardcoded secret bypass in Nginx configuration
+**Vulnerability:** A hardcoded secret (`xrpc-9f8e7d6c5b4a`) was found in the Nginx configuration file `server-php/config/conf.d/wordpress.conf` which allowed bypass of the XML-RPC block (`/xmlrpc.php`). Anyone with the secret could access this endpoint.
+**Learning:** Hardcoding secrets directly in configuration files, especially ones committed to version control, is a critical security vulnerability as it easily exposes the secret to unauthorized personnel and attackers who gain read access to the code.
+**Prevention:** Never hardcode secrets in code or configuration files. If an endpoint must be blocked, use `deny all;` unconditionally, or implement proper authentication mechanisms configured via securely loaded environment variables or secret management systems.
